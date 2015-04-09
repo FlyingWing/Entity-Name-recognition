@@ -29,7 +29,7 @@ class NewViterbi(object):
             lastMaxIndex = []#记录得到当前时刻状态i时，上一个时刻状态的索引.
             #获得转移概率矩阵的列数
             columns = self.A.shape[1]
-            print "转移概率矩阵的列数  =",columns
+#            print "转移概率矩阵的列数  =",columns
             for eachColumn in xrange(columns):
                 column = self.A[:,eachColumn]
                 column = column.reshape(3).getA()[0]#矩阵转化为数组，便于取元素
@@ -61,7 +61,7 @@ class NewViterbi(object):
             bestState = each[bestState]
             path.append(bestState)
         path.reverse()
-#        return path
+        return path
 
 if __name__ == "__main__":
     A = [[0.5, 0.3, 0.2],

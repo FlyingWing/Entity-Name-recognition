@@ -169,7 +169,7 @@ if __name__ == "__main__":
     preFile = open("myRnn-bio.txt","w")
     for x in test_x:        
         lst = rnn.classify(numpy.asarray(contextwin(x, s['win'])).astype('int32'))
-        testViterbi = NewViterbi(transMatrix, lst, intialState)
+        testViterbi = NewViterbi(transMatrix, lst[0].tolist(), intialState)
         path = testViterbi.getFianlPath()
         print "path = ",path
         predictions_test=map(lambda x: idx2label[x], path)
