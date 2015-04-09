@@ -1,0 +1,16 @@
+eclipse.preferences.version=1
+encoding//src/com/liu/data/dump.py=gb2312
+encoding//src/com/liu/data/myload.py=gb2312
+encoding//src/com/liu/dir/raw.py=gb2312
+encoding//src/com/liu/examples/myElman-forward.py=gb2312
+encoding//src/com/liu/examples/myJordan-forward.py=gb2312
+encoding//src/com/liu/examples/myRnn-forward.py=gb2312
+encoding//src/com/liu/examples/rawElman-forward.py=gb2312
+encoding//src/com/liu/predict_format/prefmt.py=gb2312
+encoding//src/com/liu/rnn/myElman.py=gb2312
+encoding//src/com/liu/rnn/myJordan.py=gb2312
+encoding//src/com/liu/rnn/myRnn.py=gb2312
+encoding//src/com/liu/utils/ImproViterbi.py=gb2312
+encoding//src/com/liu/utils/Viterbi.py=utf8
+encoding//src/com/liu/utils/testCorpus.py=gb2312
+encoding//src/com/test/demo.py=gb2312
