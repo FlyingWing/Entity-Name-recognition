@@ -176,4 +176,5 @@ if __name__ == "__main__":
         for eachlag in predictions_test:
             preFile.write(eachlag+" ")
         preFile.write("\n")
+        break
     preFile.close()  

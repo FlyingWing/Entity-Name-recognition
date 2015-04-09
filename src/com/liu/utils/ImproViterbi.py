@@ -56,12 +56,12 @@ class NewViterbi(object):
         bestState = self.finalBestState
         path.append(bestState)
         self.lastIndex.reverse()
-        print self.lastIndex
+#        print self.lastIndex
         for each in self.lastIndex:
             bestState = each[bestState]
             path.append(bestState)
         path.reverse()
-        return path
+#        return path
 
 if __name__ == "__main__":
     A = [[0.5, 0.3, 0.2],
