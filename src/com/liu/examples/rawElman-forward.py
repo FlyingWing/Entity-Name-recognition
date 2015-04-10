@@ -22,15 +22,11 @@ if __name__ == '__main__':
     s = {"seed":1234,
          "nhidden":200,
          "emb_dimension":200,
-         "win":7,
-         "nepochs":50,
-         "lr":0.0627142536696559,
+         "win":5,
+         "nepochs":24,
+         "lr":0.01,
          "bs":5,
          "verbose":1}
-
-    fileTime = time.strftime("%Y-%m-%d",time.localtime(time.time()))
-    folder = "..\\" + fileTime + os.path.basename(__file__).split('.')[0]
-    if not os.path.exists(folder): os.mkdir(folder)
 
     # load the dataset
     print "load the dataset..."
@@ -61,6 +57,9 @@ if __name__ == '__main__':
                     de = s['emb_dimension'],
                     cs = s['win'] )
 
+    fileTime = time.strftime("%Y-%m-%d",time.localtime(time.time()))
+    folder = "..\\paramInfor\\rawElman\\" + fileTime + os.path.basename(__file__).split('.')[0]
+    if not os.path.exists(folder): os.mkdir(folder)
     # train with early stopping on validation set
     print "train with early stopping nepochs ..."
     s['clr'] = s['lr']
@@ -77,19 +76,26 @@ if __name__ == '__main__':
             for word_batch , label_last_word in zip(words, labels):
                 rnn.train(word_batch, label_last_word, s['clr'])
                 rnn.normalize()
-            if s['verbose']:
-                print '[learning] epoch %i >> %2.2f%%'%(e,(i+1)*100./nsentences),'completed in %.2f (sec) <<\r'%(time.time()-tic),
-                sys.stdout.flush()
+        eachFolder =  folder + "\\" + str(e)
+        os.mkdir(eachFolder)
+        rnn.save(eachFolder)
+        if s['verbose']:
+            print '[learning] epoch %i >> %2.2f%%'%(e,(i+1)*100./nsentences),'completed in %.2f (sec) <<\r'%(time.time()-tic),
+            sys.stdout.flush()
             
         # evaluation // back into the real world : idx -> words
     print " test the model, back into the real world : idx -> words"
-    curTime = fileTime
-    filename = "predictions//bc2gm_"+str(s["nepochs"])+"_"+curTime+".eval"
-
-    predictions_test = {}
-    for k,x in test_idx.iteritems():        
-       predictions_test[k]=map(lambda x: idx2label[x],rnn.classify(numpy.asarray(contextwin(x, s['win'])).astype('int32')))
-    print "start predict..."
-    prefmt.predict_test_format(raw.originalTestCorpus, predictions_test, filename)
-    prefmt.post_processing(filename, filename+".post")
-    rnn.save(folder)
+    preFile = open("myRnn-bio.txt","w")
+    for x in test_x:
+        ''' 加入维特比算法'''        
+#        lst = rnn.classify(numpy.asarray(contextwin(x, s['win'])).astype('int32'))
+#        testViterbi = NewViterbi(transMatrix, lst[0].tolist(), intialState)
+#        path = testViterbi.getFianlPath()
+#        predictions_test=map(lambda x: idx2label[x], path)
+        
+        ''' 不加维特比算法'''
+        predictions_test = map(lambda x: idx2label[x], rnn.classify(numpy.asarray(contextwin(x, s['win'])).astype('int32')))
+        for eachlag in predictions_test:
+            preFile.write(eachlag+" ")
+        preFile.write("\n")
+    preFile.close()  

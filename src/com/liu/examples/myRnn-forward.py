@@ -130,7 +130,7 @@ if __name__ == "__main__":
 #    fileTime = time.strftime("%Y-%m-%d",time.localtime(time.time()))
 #    folder = "..\\paramInfor\\MyRnn(he)\\" + fileTime + os.path.basename(__file__).split('.')[0]
 #    os.mkdir(folder)
-    rnn.load("..\\paramInfor\\MyRnn(he)\\2015-04-05myRnn-forward-win5-re5-57")
+    rnn.load("..\\paramInfor\\MyRnn(he)\\2015-04-01myRnn-forward-win5-re5-39")
 #    print "train with early stopping nepochs ..."
 #    s['clr'] = s['lr']
 #    for e in xrange(s['nepochs']):
@@ -171,10 +171,8 @@ if __name__ == "__main__":
         lst = rnn.classify(numpy.asarray(contextwin(x, s['win'])).astype('int32'))
         testViterbi = NewViterbi(transMatrix, lst[0].tolist(), intialState)
         path = testViterbi.getFianlPath()
-        print "path = ",path
         predictions_test=map(lambda x: idx2label[x], path)
         for eachlag in predictions_test:
             preFile.write(eachlag+" ")
         preFile.write("\n")
-        break
     preFile.close()  
