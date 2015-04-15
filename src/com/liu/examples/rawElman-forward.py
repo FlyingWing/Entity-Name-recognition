@@ -16,6 +16,7 @@ from com.liu.metrics.accuracy import conlleval
 from com.liu.utils.tools import shuffle, minibatch, contextwin
 from com.liu.predict_format import prefmt
 from com.liu.dir import raw
+from com.liu.statistics import transProb
 
 if __name__ == '__main__':
 
@@ -36,6 +37,10 @@ if __name__ == '__main__':
 
     train_x, train_y = train_set
     test_x,  test_idx  = test_set
+
+#    print "统计状态转移概率矩阵...."
+#    transMatrix, intialState = transProb.getStateTransMatrix(train_y)
+#    print "统计完毕"
 
     vocsize = len(set(reduce(\
                        lambda x, y: list(x)+list(y),\
@@ -85,7 +90,7 @@ if __name__ == '__main__':
             
         # evaluation // back into the real world : idx -> words
     print " test the model, back into the real world : idx -> words"
-    preFile = open("myRnn-bio.txt","w")
+    preFile = open("rawmyRnn-bio.txt","w")
     for x in test_x:
         ''' 加入维特比算法'''        
 #        lst = rnn.classify(numpy.asarray(contextwin(x, s['win'])).astype('int32'))
